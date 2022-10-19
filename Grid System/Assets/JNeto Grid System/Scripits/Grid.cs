@@ -22,10 +22,11 @@ public class Grid {
         
         for (int x = 0; x < _gridArray.GetLength(0); x++) {
             for (int z = 0; z < _gridArray.GetLength(1); z++) {
-               
+                string cellInnerText = $"{z},{x}";
+                string cellInnerText2 = _gridArray[x, z].ToString(); //content
                 // without a offset the content will be rendered at the corner of each cell
                 Vector3 cellOffset = new Vector3(_cellSize, 0, _cellSize) * 0.5f; // 0.5 in order to the offset be the middle
-                _cells[x, z] = CreateWorldCell(_gridArray[x, z].ToString(), parent,
+                _cells[x, z] = CreateWorldCell(cellInnerText, parent,
                     GetCellWorldPos(x, z) + cellOffset, fontSize: fontSize, color: Color.red,
                     textAnchor: TextAnchor.MiddleCenter, gmObjName: $"World_Text({x},{z})");
                 
@@ -86,7 +87,7 @@ public class Grid {
         if (color == null) color = Color.white;
         return CreateWorldCell(gmObjName, parent, text, localPosition, fontSize, (Color)color, textAnchor, textAlignment, sortingOrder);
     }
-
+    
     public GameObject CreateWorldCell(string gmObjName, Transform parent, string text, Vector3 localPos, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder) {
     
         GameObject gameObject = new GameObject(gmObjName, typeof(TextMesh), typeof(BoxCollider)/*I added this one*/);
@@ -95,6 +96,7 @@ public class Grid {
         transform.SetParent(parent, false);
         transform.localPosition = localPos;
         
+        // adds a text
         TextMesh textMesh = gameObject.GetComponent<TextMesh>();
         textMesh.anchor = textAnchor;
         textMesh.alignment = textAlignment;
@@ -116,5 +118,7 @@ public class Grid {
         
         return gameObject;
     }
+    
+    
 
 }

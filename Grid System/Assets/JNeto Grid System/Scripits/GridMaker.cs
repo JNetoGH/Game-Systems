@@ -1,21 +1,24 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class GridImplementation: MonoBehaviour {
-
-
-    public Vector3 _originPos; 
+public class GridMaker: MonoBehaviour {
+    
+    public Vector3 originPos;
+    public int width = 5;
+    public int height = 5;
+    public int fontSize = 10;
+    public float cellSize = 2f;
     
     private Grid _grid;
     private MouseRayCaster _mouseRayCaster = new MouseRayCaster();
     
     private void Start()
     {
-        _grid = new Grid(width: 10, height: 10, 2f, 10, originPos: _originPos, parent: transform);
+        _grid = new Grid(width: width, height: height, cellSize, fontSize, originPos: originPos, parent: this.transform);
     }
 
     private void Update() {
-        
         
         _mouseRayCaster.CastNewRay();
         
@@ -29,6 +32,4 @@ public class GridImplementation: MonoBehaviour {
         
     }
     
-    
-     
 }
